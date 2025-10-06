@@ -17,24 +17,24 @@ import Foundation
  */
 
 func printCharacterCount(for string: String) {
-  guard string.count > 0 else { return }
-
-  var counts: [Character: Int] = [:]
-
-  for i in string {
-    counts[i, default: 0] += 1
-  }
-
-  let sortedKeys = counts.keys.sorted { counts[$0]! > counts[$1]! }
-
-  let max = counts[sortedKeys.first!]!
-
-  for key in sortedKeys {
-    let value = counts[key]!
-    let widthOfHashes = (value * 20) / max
-    let hashes = String(repeating: "#", count: widthOfHashes)
-    print("\(key) : \(hashes) \(value)")
-  }
+    guard string.count > 0 else { return }
+    
+    var counts: [Character: Int] = [:]
+    
+    for i in string {
+        counts[i, default: 0] += 1
+    }
+    
+    let sortedKeys = counts.keys.sorted { counts[$0]! > counts[$1]! }
+    
+    let max = counts[sortedKeys.first!]!
+    
+    for key in sortedKeys {
+        let value = counts[key]!
+        let widthOfHashes = (value * 20) / max
+        let hashes = String(repeating: "#", count: widthOfHashes)
+        print("\(key) : \(hashes) \(value)")
+    }
 }
 
 printCharacterCount(for: "The quick brown fox jumps over the lazy dog")
@@ -48,26 +48,26 @@ printCharacterCount(for: "The quick brown fox jumps over the lazy dog")
  */
 
 func numberOfWords(in sentence: String) -> Int {
-  var count = 0
-  var inWord = false
-
-  for character in sentence {
-    if character == " " {
-      if inWord {
-        count += 1
-      }
-      inWord = false
-    } else {
-      inWord = true
+    var count = 0
+    var inWord = false
+    
+    for character in sentence {
+        if character == " " {
+            if inWord {
+                count += 1
+            }
+            inWord = false
+        } else {
+            inWord = true
+        }
     }
-  }
-
-  // We need to add 1 to count the final word if there was at least 1 character
-  if inWord {
-    count += 1
-  }
-
-  return count
+    
+    // We need to add 1 to count the final word if there was at least 1 character
+    if inWord {
+        count += 1
+    }
+    
+    return count
 }
 
 let wordCount = numberOfWords(in: "The quick brown fox jumps over the lazy dog")
@@ -76,28 +76,28 @@ print(wordCount)
 
 /*:
  ### Challenge 3: Name Formatter
-Write a function that takes a string which looks like "Galloway, Matt" and returns one which looks like "Matt Galloway", i.e., the string goes from `"<LAST_NAME>, <FIRST_NAME>"` to `"<FIRST_NAME> <LAST_NAME>"`.
+ Write a function that takes a string which looks like "Galloway, Matt" and returns one which looks like "Matt Galloway", i.e., the string goes from `"<LAST_NAME>, <FIRST_NAME>"` to `"<FIRST_NAME> <LAST_NAME>"`.
  */
 
 func sanitized(name: String) -> String? {
-  guard let indexOfComma = name.firstIndex(of: ",") else {
-    return nil
-  }
-
-  let lastNameSubstring = name[..<indexOfComma]
-  let firstNameSubstring = name[indexOfComma...].dropFirst(2)
-
-  return firstNameSubstring + " " + lastNameSubstring
+    guard let indexOfComma = name.firstIndex(of: ",") else {
+        return nil
+    }
+    
+    let lastNameSubstring = name[..<indexOfComma]
+    let firstNameSubstring = name[indexOfComma...].dropFirst(2)
+    
+    return firstNameSubstring + " " + lastNameSubstring
 }
 
 if let sanitizedName = sanitized(name: "Galloway, Matt") {
-  print(sanitizedName)
+    print(sanitizedName)
 }
 
 
 /*:
  ### Challenge 4: Components
-
+ 
  A method exists on a string named `components(separatedBy:)` that will split the string into chunks, which are delimited by the given string, and return an array containing the results.
  
  Your challenge is to implement this yourself.
@@ -106,22 +106,22 @@ if let sanitizedName = sanitized(name: "Galloway, Matt") {
  */
 
 func splitting(_ string: String, delimiter: Character) -> [String] {
-  var returnArray: [String] = []
-  var lastWordIndex = string.startIndex
-
-  for i in string.indices {
-    if string[i] == delimiter {
-      let substring = string[lastWordIndex..<i]
-      returnArray.append(String(substring))
-      lastWordIndex = string.index(after: i)
+    var returnArray: [String] = []
+    var lastWordIndex = string.startIndex
+    
+    for i in string.indices {
+        if string[i] == delimiter {
+            let substring = string[lastWordIndex..<i]
+            returnArray.append(String(substring))
+            lastWordIndex = string.index(after: i)
+        }
     }
-  }
-
-  // Add the final word
-  let substring = string[lastWordIndex..<string.endIndex]
-  returnArray.append(String(substring))
-
-  return returnArray
+    
+    // Add the final word
+    let substring = string[lastWordIndex..<string.endIndex]
+    returnArray.append(String(substring))
+    
+    return returnArray
 }
 
 let pieces = splitting("Dog,Cat,Badger,Snake,Lion", delimiter: ",")
@@ -140,22 +140,22 @@ print(pieces)
  */
 
 func reversedByWord(sentence: String) -> String {
-  var reversedWords = ""
-  var lastWordIndex = sentence.startIndex
-
-  for i in sentence.indices {
-    if sentence[i] == " " {
-      let substring = sentence[lastWordIndex..<i]
-      reversedWords += substring.reversed() + " "
-      lastWordIndex = sentence.index(after: i)
+    var reversedWords = ""
+    var lastWordIndex = sentence.startIndex
+    
+    for i in sentence.indices {
+        if sentence[i] == " " {
+            let substring = sentence[lastWordIndex..<i]
+            reversedWords += substring.reversed() + " "
+            lastWordIndex = sentence.index(after: i)
+        }
     }
-  }
-
-  // Add the final word
-  let substring = sentence[lastWordIndex..<sentence.endIndex]
-  reversedWords += substring.reversed()
-
-  return reversedWords
+    
+    // Add the final word
+    let substring = sentence[lastWordIndex..<sentence.endIndex]
+    reversedWords += substring.reversed()
+    
+    return reversedWords
 }
 
 let reversed = reversedByWord(sentence: "The quick brown fox jumps over the lazy dog")
