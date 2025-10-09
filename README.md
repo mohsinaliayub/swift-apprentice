@@ -1,3 +1,3 @@
-# Swift Apprentice
+# Swift Apprentice: Fundamentals
 
-The repo contains the mini exercises and challenges from **Swift Apprentice** book.
+The repo contains the mini exercises and challenges from **Swift Apprentice: Fundamentals** book.
